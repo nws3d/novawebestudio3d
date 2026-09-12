@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -39,30 +40,30 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="/" className="flex items-center gap-2" aria-label="NovaWebEstudio3D — Inicio">
+        <Link href="/" className="flex items-center gap-2" aria-label="NovaWebEstudio3D — Inicio">
           <Logo3D />
           <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
             NovaWeb<span className="text-emerald-600 dark:text-emerald-400">Estudio3D</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex md:items-center md:gap-8">
           {LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-zinc-600 hover:text-emerald-600 dark:text-emerald-500 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <ModeToggle />
           <Button
             asChild
             className="bg-emerald-500 text-zinc-950 hover:bg-emerald-400 dark:bg-emerald-400 dark:text-zinc-950 dark:hover:bg-emerald-300 shadow-lg shadow-emerald-500/25"
           >
-            <a href="/#contacto">Cotizar gratis</a>
+            <Link href="/#contacto">Cotizar gratis</Link>
           </Button>
         </div>
 
@@ -92,14 +93,14 @@ export function Navbar() {
           >
             <div className="space-y-1 px-4 pb-4 pt-2">
               {LINKS.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className="block rounded-lg px-3 py-3 text-base font-medium text-zinc-800 dark:text-zinc-200 transition-colors hover:bg-zinc-50 dark:bg-zinc-900 hover:text-emerald-700 dark:text-emerald-300"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <Button
                 asChild

@@ -9,10 +9,11 @@ import { Logo3D } from "./logo-3d";
 import { ModeToggle } from "@/components/mode-toggle";
 
 const LINKS = [
-  { href: "#tipos", label: "Tipos de páginas" },
-  { href: "#precios", label: "Precios" },
-  { href: "#proceso", label: "Cómo trabajamos" },
-  { href: "#faq", label: "Preguntas" },
+  { href: "/#tipos", label: "Tipos de páginas" },
+  { href: "/portafolio", label: "Portafolio" },
+  { href: "/#precios", label: "Precios" },
+  { href: "/#proceso", label: "Cómo trabajamos" },
+  { href: "/#faq", label: "Preguntas" },
 ];
 
 export function Navbar() {
@@ -38,7 +39,7 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#inicio" className="flex items-center gap-2" aria-label="NovaWebEstudio3D — Inicio">
+        <a href="/" className="flex items-center gap-2" aria-label="NovaWebEstudio3D — Inicio">
           <Logo3D />
           <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
             NovaWeb<span className="text-emerald-600 dark:text-emerald-400">Estudio3D</span>
@@ -61,7 +62,7 @@ export function Navbar() {
             asChild
             className="bg-emerald-500 text-zinc-950 hover:bg-emerald-400 dark:bg-emerald-400 dark:text-zinc-950 dark:hover:bg-emerald-300 shadow-lg shadow-emerald-500/25"
           >
-            <a href="#contacto">Cotizar gratis</a>
+            <a href="/#contacto">Cotizar gratis</a>
           </Button>
         </div>
 
@@ -104,7 +105,7 @@ export function Navbar() {
                 asChild
                 className="mt-2 w-full bg-emerald-400 font-semibold text-zinc-950 hover:bg-emerald-300"
               >
-                <a href="#contacto" onClick={() => setOpen(false)}>
+                <a href="/#contacto" onClick={() => setOpen(false)}>
                   Cotizar gratis
                 </a>
               </Button>

@@ -84,39 +84,74 @@ Detalles de mi proyecto:
 ${form.message || "Quiero más información para empezar."}`;
   };
 
-  const handleWhatsApp = (e: React.MouseEvent) => {
+  const handleSubmitToDbAndWhatsApp = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!form.name || !form.pageType) {
+    if (!form.name || !form.pageType || !form.email) {
       toast({
         title: "Faltan datos",
-        description: "Por favor llena tu nombre y el tipo de página antes de enviar.",
+        description: "Por favor llena tu nombre, correo y tipo de página antes de enviar.",
         variant: "destructive",
       });
       return;
     }
+    
+    setSending(true);
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: form.name,
+          email: form.email,
+          telefono: form.phone,
+          mensaje: form.budget ? `Presupuesto: ${form.budget}\n${form.message}` : form.message,
+          tipoServicio: form.pageType + (form.planName ? ` (${form.planName})` : ""),
+        }),
+      });
+    } catch (err) {
+      console.error("Error guardando lead en BD:", err);
+    }
+    setSending(false);
+
     const text = encodeURIComponent(generateMessageBody());
-    // Número oficial de NovaWebEstudio3D
     const whatsappNumber = "584121058021"; 
     window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
     
-    toast({ title: "¡Redirigiendo a WhatsApp! 💬", description: "Enviando tu mensaje..." });
+    toast({ title: "¡Solicitud registrada! 🚀", description: "Te estamos redirigiendo a WhatsApp para charlar." });
   };
 
-  const handleEmail = (e: React.MouseEvent) => {
+  const handleSubmitToDbAndEmail = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!form.name || !form.pageType) {
+    if (!form.name || !form.pageType || !form.email) {
       toast({
         title: "Faltan datos",
-        description: "Por favor llena tu nombre y el tipo de página antes de enviar.",
+        description: "Por favor llena tu nombre, correo y tipo de página antes de enviar.",
         variant: "destructive",
       });
       return;
     }
-    const subject = encodeURIComponent(`Nuevo Proyecto: ${form.pageType} - ${form.name}`);
+
+    setSending(true);
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: form.name,
+          email: form.email,
+          telefono: form.phone,
+          mensaje: form.budget ? `Presupuesto: ${form.budget}\n${form.message}` : form.message,
+          tipoServicio: form.pageType + (form.planName ? ` (${form.planName})` : ""),
+        }),
+      });
+    } catch (err) {
+      console.error("Error guardando lead en BD:", err);
+    }
+    setSending(false);
+
     const body = encodeURIComponent(generateMessageBody());
-    window.location.href = `mailto:novawebestudio3d@gmail.com?subject=${subject}&body=${body}`;
-    
-    toast({ title: "¡Abriendo tu correo! 📧", description: "Preparando el mensaje..." });
+    window.location.href = `mailto:novawebestudio3d@gmail.com?subject=Nuevo Proyecto: ${encodeURIComponent(form.name)}&body=${body}`;
+    toast({ title: "¡Registrado! Abriendo tu correo...", description: "Revisa tu app de email." });
   };
 
   return (
@@ -325,7 +360,7 @@ ${form.message || "Quiero más información para empezar."}`;
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Button
                   type="button"
-                  onClick={handleWhatsApp}
+                  onClick={handleSubmitToDbAndWhatsApp}
                   disabled={sending}
                   size="lg"
                   className="flex-1 h-12 bg-emerald-400 text-base font-semibold text-zinc-950 shadow-lg shadow-emerald-500/25 hover:bg-emerald-300 disabled:opacity-60"
@@ -336,7 +371,7 @@ ${form.message || "Quiero más información para empezar."}`;
                 
                 <Button
                   type="button"
-                  onClick={handleEmail}
+                  onClick={handleSubmitToDbAndEmail}
                   disabled={sending}
                   size="lg"
                   variant="outline"

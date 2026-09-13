@@ -132,10 +132,10 @@ function BrowserWindow() {
   const screenGlow = useRef<THREE.Mesh>(null);
   
   // Cargar las texturas
-  const mobaTexture = useTexture("/novawebestudio3d/mockups/moba.jpg");
+  const mobaTexture = useTexture("/mockups/moba.jpg");
   mobaTexture.colorSpace = THREE.SRGBColorSpace;
   
-  const keyboardTexture = useTexture("/novawebestudio3d/mockups/keyboard.jpg");
+  const keyboardTexture = useTexture("/mockups/keyboard.jpg");
   keyboardTexture.colorSpace = THREE.SRGBColorSpace;
   // Ajustar la textura del teclado para que encaje mejor
   keyboardTexture.repeat.set(1, 0.7);

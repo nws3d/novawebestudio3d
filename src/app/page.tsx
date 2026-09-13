@@ -39,8 +39,8 @@ function FinalCta() {
             aria-hidden
             className="pointer-events-none absolute -right-16 top-1/3 h-56 w-56 rounded-full bg-fuchsia-500/10 blur-[90px]"
           />
-          <div className="relative mx-auto mb-6 flex h-16 w-16 items-center justify-center">
-            <Logo3D />
+          <div className="relative mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-500 to-emerald-400 shadow-xl shadow-emerald-500/20">
+            <Zap className="h-8 w-8 text-white" />
           </div>
           <h2 className="relative text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
             Tu próxima página web está a un mensaje de distancia

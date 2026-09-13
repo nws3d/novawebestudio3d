@@ -20,7 +20,6 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-2" aria-label="NovaWebEstudio3D — Inicio">
-              <Logo3D />
               <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
                 NovaWeb<span className="text-emerald-600 dark:text-emerald-400">Estudio3D</span>
               </span>

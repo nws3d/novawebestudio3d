@@ -84,7 +84,7 @@ Detalles de mi proyecto:
 ${form.message || "Quiero más información para empezar."}`;
   };
 
-  const handleSubmitToDbAndWhatsApp = async (e: React.MouseEvent) => {
+  const handleWhatsApp = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!form.name || !form.pageType || !form.email) {
       toast({
@@ -95,24 +95,6 @@ ${form.message || "Quiero más información para empezar."}`;
       return;
     }
     
-    setSending(true);
-    try {
-      await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nombre: form.name,
-          email: form.email,
-          telefono: form.phone,
-          mensaje: form.budget ? `Presupuesto: ${form.budget}\n${form.message}` : form.message,
-          tipoServicio: form.pageType + (form.planName ? ` (${form.planName})` : ""),
-        }),
-      });
-    } catch (err) {
-      console.error("Error guardando lead en BD:", err);
-    }
-    setSending(false);
-
     const text = encodeURIComponent(generateMessageBody());
     const whatsappNumber = "584121058021"; 
     window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
@@ -120,7 +102,7 @@ ${form.message || "Quiero más información para empezar."}`;
     toast({ title: "¡Solicitud registrada! 🚀", description: "Te estamos redirigiendo a WhatsApp para charlar." });
   };
 
-  const handleSubmitToDbAndEmail = async (e: React.MouseEvent) => {
+  const handleEmail = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!form.name || !form.pageType || !form.email) {
       toast({
@@ -130,24 +112,6 @@ ${form.message || "Quiero más información para empezar."}`;
       });
       return;
     }
-
-    setSending(true);
-    try {
-      await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nombre: form.name,
-          email: form.email,
-          telefono: form.phone,
-          mensaje: form.budget ? `Presupuesto: ${form.budget}\n${form.message}` : form.message,
-          tipoServicio: form.pageType + (form.planName ? ` (${form.planName})` : ""),
-        }),
-      });
-    } catch (err) {
-      console.error("Error guardando lead en BD:", err);
-    }
-    setSending(false);
 
     const body = encodeURIComponent(generateMessageBody());
     window.location.href = `mailto:novawebestudio3d@gmail.com?subject=Nuevo Proyecto: ${encodeURIComponent(form.name)}&body=${body}`;
@@ -360,7 +324,7 @@ ${form.message || "Quiero más información para empezar."}`;
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Button
                   type="button"
-                  onClick={handleSubmitToDbAndWhatsApp}
+                  onClick={handleWhatsApp}
                   disabled={sending}
                   size="lg"
                   className="flex-1 h-12 bg-emerald-400 text-base font-semibold text-zinc-950 shadow-lg shadow-emerald-500/25 hover:bg-emerald-300 disabled:opacity-60"
@@ -371,7 +335,7 @@ ${form.message || "Quiero más información para empezar."}`;
                 
                 <Button
                   type="button"
-                  onClick={handleSubmitToDbAndEmail}
+                  onClick={handleEmail}
                   disabled={sending}
                   size="lg"
                   variant="outline"
